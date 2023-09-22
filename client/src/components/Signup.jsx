@@ -10,7 +10,7 @@ const Signup = () => {
         const payload={username,email,pass}
         console.log('payload:', payload)
 
-        fetch("http://localhost:8080/users/register",{
+        fetch("https://notes-app-server-21eg.onrender.com/users/register",{
             method:"POST",
             headers:{
                 "Content-type":"application/json"
