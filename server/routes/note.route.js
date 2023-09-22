@@ -11,18 +11,18 @@ noteRouter.post("/create",async(req,res)=>{
     try {
         const note=new NoteModel(payload)
         await note.save()
-        res.status(200).send({"msg":"A new note has been Created"})
+        res.status(200).json({msg:"A new note has been Created"})
     } catch (error) {
-        res.status(400).send({"error":error})
+        res.status(400).json({error})
     }
 })
 
 noteRouter.get("/",async(req,res)=>{
     try {
         const notes=await NoteModel.find({userID:req.body.userID})
-        res.status(200).send(notes)
+        res.status(200).json(notes)
     } catch (error) {
-        res.status(400).send({"Error":error})
+        res.status(400).json({error})
     }
 })
 
@@ -34,12 +34,12 @@ noteRouter.patch("/update/:id",async(req,res)=>{
 
         if(note.userID==req.body.userID){
             await NoteModel.findByIdAndUpdate({_id:id},payload)
-            res.status(200).send({"message":`Note with ${id} Updated`})
+            res.status(200).json({msg:`Note with ${id} Updated`})
         }else{
-            res.status(200).send({"error":"You don't have the access to update"})
+            res.status(200).json({error:"You don't have the access to update"})
         }
     } catch (error) {
-        res.status(400).send({"Error":error})
+        res.status(400).json({error})
     }
 })
 
@@ -50,12 +50,12 @@ noteRouter.delete("/delete/:id",async(req,res)=>{
 
         if(note.userID==req.body.userID){
             await NoteModel.findByIdAndDelete({_id:id})
-            res.status(200).send({"message":`Note with ${id} deleted`})
+            res.status(200).json({msg:`Note with ${id} deleted`})
         }else{
-            res.status(200).send({"error":"You don't have the access to delete"})
+            res.status(200).json({error:"You don't have the access to delete"})
         }
     } catch (error) {
-        res.status(400).send({"Error":error})
+        res.status(400).json({error})
     }
 })
 module.exports={noteRouter}
