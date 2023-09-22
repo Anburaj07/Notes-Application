@@ -8,7 +8,7 @@ const Login = () => {
         const payload={email,pass}
         console.log('payload:', payload)
 
-        fetch("http://localhost:8080/users/login",{
+        fetch("https://notes-application-nu.vercel.app/users/login",{
             method:"POST",
             headers:{
                 "Content-type":"application/json"
