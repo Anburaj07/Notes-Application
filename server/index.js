@@ -9,6 +9,31 @@ app.use(cors({
 }))
 app.use(express.json())
 
+const swaggerJsdoc=require("swagger-jsdoc")
+const swaggerUi=require("swagger-ui-express")
+
+//openapi definitions
+const options={
+    definition:{
+        openapi:"3.0.0",
+        info:{
+            title:"Learning Swagger",
+            version:"1.0.0"
+        },
+        servers:[
+            {
+                url:"http://localhost:4500/"
+            }
+        ]
+    },
+    apis:["./routes/*.js"]
+}
+
+const swaggerSpec=swaggerJsdoc(options)
+
+//specification
+app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec))
+
 app.use("/users",userRouter)
 app.use("/notes",noteRouter)
 
